@@ -4,7 +4,7 @@ import Content from './components/Content'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { $fetch } from 'ofetch'
-import { SteamUserInfo } from './types'
+import { SteamUserInfo } from '../types'
 
 export default function Home() {
   const router = useRouter()

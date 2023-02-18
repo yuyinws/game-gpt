@@ -1,4 +1,4 @@
-import { SteamUserInfo } from '@/pages/types'
+import { SteamUserInfo } from '@/types'
 import { Button, Avatar, Popover, Text } from '@nextui-org/react'
 import { useState } from 'react'
 import style from './Header.module.css'

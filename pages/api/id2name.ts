@@ -1,6 +1,6 @@
 import { id2Name } from '@/utils/id2name'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { GameInfo, GameNameRes } from '../types'
+import { GameInfo, GameNameRes } from '../../types'
 
 export default async function handler(
   req: NextApiRequest,

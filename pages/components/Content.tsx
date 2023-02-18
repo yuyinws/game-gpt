@@ -1,6 +1,6 @@
 import { getRandomElement } from '@/utils/tools'
 import { Button, Card } from '@nextui-org/react'
-import { GameNameRes, SteamUserInfo } from '../types'
+import { GameNameRes, SteamUserInfo } from '../../types'
 import { $fetch } from 'ofetch'
 import { useState } from 'react'
 
