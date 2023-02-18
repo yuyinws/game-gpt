@@ -1,48 +1,72 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
-
-const inter = Inter({ subsets: ['latin'] })
+import Header from './components/Header/Header'
+import Content from './components/Content'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { $fetch } from 'ofetch'
+import { SteamUserInfo } from './types'
 
 export default function Home() {
+  const router = useRouter()
+  const openid = router.query.openid
+  const [userInfo, setUserInfo] = useState<null | SteamUserInfo>(null)
 
+  async function getSteamUserInfo() {
+    const steamUserInfo = window.localStorage.getItem('steam-user-info')
 
-  async function test() {
-    console.log('xxxxxxx')
-    const response = await fetch("/api/chatgpt", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        prompt: "我现在有以下这些游戏，请推荐我一款游玩并说明理由：Grand Theft Auto V, Counter-Strike: Global Offensive, Dota 2, Rocket League, Playerunknown's Battlegrounds, Hollow Knight,Divinity: Original Sin 2, Skyrim, Dark Souls III",
-      }),
-    });
-    console.log("Edge function returned.");
+    if (openid && !steamUserInfo) {
+      const response = await $fetch('/api/info/steam', {
+        params: {
+          openid,
+        },
+      })
 
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-
-    // This data is a ReadableStream
-    const data = response.body;
-    if (!data) {
-      return;
-    }
-
-    const reader = data.getReader();
-    const decoder = new TextDecoder();
-    let done = false;
-
-    while (!done) {
-      const { value, done: doneReading } = await reader.read();
-      done = doneReading;
-      const chunkValue = decoder.decode(value);
-      console.log("🚀 ~ file: index.tsx:42 ~ test ~ chunkValue", chunkValue)
+      if (response.state === 'ok') {
+      }
+      window.localStorage.setItem('steam-user-info', JSON.stringify(response))
+    } else if (steamUserInfo) {
+      setUserInfo(JSON.parse(steamUserInfo))
     }
   }
 
+  useEffect(() => {
+    getSteamUserInfo()
+  }, [openid])
+  async function test() {
+    console.log('xxxxxxx')
+    const response = await fetch('/api/chatgpt', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        prompt:
+          "我现在有以下这些游戏，请推荐我一款游玩并说明理由：Grand Theft Auto V, Counter-Strike: Global Offensive, Dota 2, Rocket League, Playerunknown's Battlegrounds, Hollow Knight,Divinity: Original Sin 2, Skyrim, Dark Souls III",
+      }),
+    })
+    console.log('Edge function returned.')
+
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+
+    // This data is a ReadableStream
+    const data = response.body
+    if (!data) {
+      return
+    }
+
+    const reader = data.getReader()
+    const decoder = new TextDecoder()
+    let done = false
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read()
+      done = doneReading
+      const chunkValue = decoder.decode(value)
+      console.log('🚀 ~ file: index.tsx:42 ~ test ~ chunkValue', chunkValue)
+    }
+  }
 
   return (
     <>
@@ -52,8 +76,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <button onClick={test}>tets</button>
+      <main>
+        <Header userInfo={userInfo} />
+        <Content userInfo={userInfo} />
       </main>
     </>
   )

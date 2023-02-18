@@ -1,3 +1,4 @@
+import { NextApiRequest } from 'next'
 import openid from 'openid'
 
 export function steamAuth() {
@@ -12,7 +13,7 @@ export function steamAuth() {
   )
 
   async function getRedirectUrl(): Promise<string> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       relyingParty.authenticate(
         'https://steamcommunity.com/openid',
         false,
@@ -28,7 +29,7 @@ export function steamAuth() {
     })
   }
 
-  async function callback(req: any) {
+  async function callback(req: NextApiRequest) {
     return new Promise((resolve) => {
       relyingParty.verifyAssertion(req, (err, result) => {
         if (err)

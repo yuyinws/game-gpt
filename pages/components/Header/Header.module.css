@@ -1,0 +1,23 @@
+.title {
+  background: linear-gradient(112deg, var(--nextui-colors-cyan600) -63.59%, var(--nextui-colors-pink600) -20.3%, var(--nextui-colors-blue600) 70.46%);;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  background-size: 400% 400%;
+  animation: gradient 12s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }                                                                                                       
+                                                                                                          
+  50% {                                                                                                   
+    background-position: 100% 50%;                                                                        
+  }                                                                                                       
+                                                                                                          
+  100% {
+    background-position: 0% 50%;
+  }
+}

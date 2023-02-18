@@ -1,20 +1,3 @@
-// import { steamAuth } from '~~/server/utils/steamAuth'
-
-// export default defineEventHandler(async () => {
-//   try {
-//     const { getRedirectUrl } = steamAuth()
-
-//     const redirectUrl = await getRedirectUrl()
-
-//     return {
-//       redirectUrl,
-//     }
-//   }
-//   catch (error) {
-//     throw new Error(error as string)
-//   }
-// })
-
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { steamAuth } from '@/utils/steamAuth'
 import type { NextApiRequest, NextApiResponse } from 'next'
