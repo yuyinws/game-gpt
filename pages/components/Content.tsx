@@ -1,20 +1,20 @@
 import { getRandomElement } from '@/utils/tools'
 import { Button, Card } from '@nextui-org/react'
-import { GameInfo, GameNameRes, SteamUserInfo } from '../types'
+import { GameNameRes, SteamUserInfo } from '../types'
 import { $fetch } from 'ofetch'
 import { useState } from 'react'
 
-interface Recommend {
-  gameInfos: GameInfo[]
-  content: string
-}
+// interface Recommend {
+//   gameInfos: GameInfo[]
+//   content: string
+// }
 
 export default function Content({
   userInfo,
 }: {
   userInfo: SteamUserInfo | null
 }) {
-  const [history, setHistory] = useState<string[]>([])
+  // const [history, setHistory] = useState<string[]>([])
   const [content, setContent] = useState<string>('')
 
   async function recommend() {
@@ -39,12 +39,12 @@ export default function Content({
         const nameString = gameInfos.map((i) => i.name).join(', ')
 
         const prompt = `我现在有以下这些游戏，请推荐我一款游玩并说明理由：${nameString} .`
-        generate(prompt, gameInfos)
+        generate(prompt)
       }
     }
   }
 
-  async function generate(prompt: string, gameInfos: GameInfo[]) {
+  async function generate(prompt: string) {
     try {
       const response = await fetch('/api/generator', {
         method: 'post',

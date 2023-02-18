@@ -32,41 +32,6 @@ export default function Home() {
   useEffect(() => {
     getSteamUserInfo()
   }, [openid])
-  async function test() {
-    console.log('xxxxxxx')
-    const response = await fetch('/api/chatgpt', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        prompt:
-          "我现在有以下这些游戏，请推荐我一款游玩并说明理由：Grand Theft Auto V, Counter-Strike: Global Offensive, Dota 2, Rocket League, Playerunknown's Battlegrounds, Hollow Knight,Divinity: Original Sin 2, Skyrim, Dark Souls III",
-      }),
-    })
-    console.log('Edge function returned.')
-
-    if (!response.ok) {
-      throw new Error(response.statusText)
-    }
-
-    // This data is a ReadableStream
-    const data = response.body
-    if (!data) {
-      return
-    }
-
-    const reader = data.getReader()
-    const decoder = new TextDecoder()
-    let done = false
-
-    while (!done) {
-      const { value, done: doneReading } = await reader.read()
-      done = doneReading
-      const chunkValue = decoder.decode(value)
-      console.log('🚀 ~ file: index.tsx:42 ~ test ~ chunkValue', chunkValue)
-    }
-  }
 
   return (
     <>
