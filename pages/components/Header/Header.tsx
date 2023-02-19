@@ -50,7 +50,10 @@ export default function Header({
               <MoonIcon filled fill="var(--nextui-colors-accents6)" />
             )}
           </div>
-          <a href="https://github.com/yuyinws/game-gpt">
+          <a
+            href="https://github.com/yuyinws/game-gpt"
+            className="w-[24px] h-[24px]"
+          >
             <GithubIcon fill="var(--nextui-colors-accents6)" />
           </a>
         </div>

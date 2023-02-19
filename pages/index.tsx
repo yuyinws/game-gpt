@@ -42,7 +42,7 @@ export default function Home() {
         <title>GameGPT</title>
         <meta name="description" content="Get game play advice from ChatGPT" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/svg" href="/favicon.svg" />
       </Head>
       <main>
         <Header userInfo={userInfo} getSteamUserInfo={getSteamUserInfo} />
