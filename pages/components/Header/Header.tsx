@@ -1,10 +1,10 @@
 import { SteamUserInfo } from '@/types'
 import { removeCookie } from '@/utils/tools'
 import { Button, Avatar, Popover, Text, useTheme } from '@nextui-org/react'
-import { SunIcon } from '../Icon/SunIcon'
+import SunIcon from '../Icon/SunIcon'
 import { useState } from 'react'
 import style from './Header.module.css'
-import { MoonIcon } from '../Icon/MoonIcon'
+import MoonIcon from '../Icon/MoonIcon'
 import { useTheme as useNextTheme } from 'next-themes'
 
 export default function Header({

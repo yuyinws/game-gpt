@@ -1,4 +1,4 @@
-export const SunIcon = ({
+const SunIcon = ({
   fill = 'currentColor',
   filled,
   size,
@@ -62,3 +62,5 @@ export const SunIcon = ({
     </svg>
   )
 }
+
+export default SunIcon

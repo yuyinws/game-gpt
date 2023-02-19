@@ -1,4 +1,4 @@
-export const MoonIcon = ({
+const MoonIcon = ({
   fill = 'currentColor',
   filled,
   size,
@@ -42,3 +42,5 @@ export const MoonIcon = ({
     </svg>
   )
 }
+
+export default MoonIcon
