@@ -1,5 +1,6 @@
 import { steamAuth } from '@/utils/steamAuth'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { setCookie } from '@/utils/tools'
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,5 +10,7 @@ export default async function handler(
 
   const openid = await callback(req)
 
-  res.redirect(302,`/?openid=${openid}`)
+  setCookie(res,'steam-open-id', openid,{ path: '/', maxAge: 2592000 })
+
+  res.redirect(302,`/`)
 }

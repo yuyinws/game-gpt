@@ -13,7 +13,7 @@ export default async function handler(
     const gameInfos:GameInfo[] = await Promise.all(gameIds.map(async (item: string) => {
       const name = await id2Name(item)
       return {
-        name,
+        name: name,
         id: item
       }
     }))
@@ -23,7 +23,11 @@ export default async function handler(
       gameInfos
     })
   } catch (error) {
-    
+    console.log("🚀 ~ file: id2name.ts:26 ~ error", error)
+    return res.json({
+      state: 'fail',
+      gameInfos: []
+    })
   }
 
 

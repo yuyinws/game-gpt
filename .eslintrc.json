@@ -8,6 +8,7 @@
   "rules": {
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "off",
-    "react/self-closing-comp": "error"
+    "react/self-closing-comp": "error",
+    "@typescript-eslint/ban-ts-comment": "off"
   }
 }

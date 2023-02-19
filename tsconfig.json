@@ -20,6 +20,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/components/Icon/Sun.jtx", "pages/components/Icon/Sun.jtx"],
   "exclude": ["node_modules"]
 }
