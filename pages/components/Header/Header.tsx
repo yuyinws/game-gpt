@@ -39,7 +39,7 @@ export default function Header({
   return (
     <>
       <div className={`${style['header']}`}>
-        <div className="flex gap-5">
+        <div className="flex gap-5 relative">
           <div
             className="w-[24px] h-[24px] cursor-pointer"
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
@@ -52,7 +52,7 @@ export default function Header({
           </div>
           <a
             href="https://github.com/yuyinws/game-gpt"
-            className="w-[24px] h-[24px]"
+            className="w-[24px] h-[24px] absolute left-9"
           >
             <GithubIcon fill="var(--nextui-colors-accents6)" />
           </a>
