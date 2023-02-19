@@ -15,10 +15,6 @@
   border-bottom: 1px solid var(--nextui-colors-gray50);
 }
 
-.fill {
-  fill: var(--nextui-colors-gray900);
-}
-
 .title {
   background: linear-gradient(112deg, var(--nextui-colors-cyan600) -63.59%, var(--nextui-colors-pink600) -20.3%, var(--nextui-colors-blue600) 70.46%);;
   background-clip: text;
