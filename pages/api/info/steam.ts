@@ -23,12 +23,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     })
 
     const [userRes, gameRes] = await Promise.all([userInfoReq, gamesReq])
+    console.log("🚀 ~ file: steam.ts:26 ~ handler ~ gameRes", gameRes.response.games)
 
     return res.json({
       state: 'ok',
       user: userRes.response.players[0],
       games: {
-        appList: gameRes.response.games.map((i:any) => i.appid),
+        appList: gameRes.response.games.sort((a:any,b:any) => b.playtime_forever - a.playtime_forever).map((i:any) => i.appid),
         count: gameRes.response.game_count
       },
     })

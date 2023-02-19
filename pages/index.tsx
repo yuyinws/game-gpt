@@ -22,9 +22,9 @@ export default function Home() {
       })
 
       if (response.state === 'ok') {
+        window.localStorage.setItem('steam-user-info', JSON.stringify(response))
+        getSteamUserInfo()
       }
-      window.localStorage.setItem('steam-user-info', JSON.stringify(response))
-      getSteamUserInfo()
     } else if (steamUserInfo) {
       setUserInfo(JSON.parse(steamUserInfo))
     } else {

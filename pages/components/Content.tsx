@@ -16,15 +16,18 @@ export default function Content({
   const [content, setContent] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
 
-  async function recommend() {
+  async function recommend(type: 'library' | 'random' | 'time') {
     try {
       setLoading(true)
-      let gameIds = []
-      if (userInfo?.games.appList) {
-        gameIds = getRandomElement(userInfo?.games.appList, 10)
-      } else {
+      let gameIds: string[] = []
+      if (type === 'library') {
+        gameIds = getRandomElement(userInfo!.games.appList, 10)
+      } else if (type === 'random') {
         gameIds = getRandomElement(DEFAULT_APPLIST, 10)
+      } else if (type === 'time') {
+        gameIds = getRandomElement(userInfo!.games.appList.slice(0, 20), 5)
       }
+
       const { state, gameInfos } = await $fetch<GameNameRes>('/api/id2name', {
         method: 'post',
         body: {
@@ -38,10 +41,17 @@ export default function Content({
           return old
         })
         const nameString = gameInfos.map((i) => i.name).join(', ')
-        allGames.unshift(...gameInfos)
-        const prompt = `
-          Please answer my question in Simplified Chinese, I have following games ${nameString}. Please recommend one of the best ones to me and explain the reasons. Put the game name in quotes in answer.
-          `
+
+        if (type === 'library') allGames.unshift(...gameInfos)
+
+        let prompt = ''
+
+        if (type === 'library' || type === 'random') {
+          prompt = `Please answer my question in Simplified Chinese, I have following games: ${nameString}. Please recommend one of the best ones to me and explain the reasons. Put the game name in quotes in answer.`
+        } else if (type === 'time') {
+          prompt = `Please answer my question in Simplified Chinese, These are my favorite games: ${nameString}. Please recommend a new game for me and explain the reasons according to them.`
+        }
+
         generate(prompt)
       } else {
         setLoading(false)
@@ -107,27 +117,53 @@ export default function Content({
 
   return (
     <>
-      <div className="p-[60px]">
+      <div className="px-[20px] py-[60px]">
         <div className="flex items-center flex-col gap-5">
-          {history.length < 10 ? (
-            <div className="flex flex-col gap-3">
-              <Button onPress={recommend} color="gradient" disabled={loading}>
-                {loading ? (
-                  <Loading type="points" color="currentColor" size="sm" />
-                ) : (
-                  '推荐游戏'
-                )}
-              </Button>
-              {userInfo ? (
-                ''
+          <div className="flex gap-3 flex-wrap justify-center">
+            <Button
+              shadow
+              onPress={() => recommend('random')}
+              color="gradient"
+              disabled={loading}
+            >
+              {loading ? (
+                <Loading type="points" color="currentColor" size="sm" />
               ) : (
-                <Text size="$xs">
-                  提示: 登录你的Steam账号以获取更精确的游戏推荐
-                </Text>
+                '随机推荐'
               )}
-            </div>
-          ) : (
+            </Button>
+            <Button
+              shadow
+              onPress={() => recommend('library')}
+              color="gradient"
+              disabled={!userInfo || loading}
+            >
+              {loading ? (
+                <Loading type="points" color="currentColor" size="sm" />
+              ) : (
+                '从库存推荐'
+              )}
+            </Button>
+            <Button
+              shadow
+              onPress={() => recommend('time')}
+              color="gradient"
+              disabled={!userInfo || loading}
+            >
+              {loading ? (
+                <Loading type="points" color="currentColor" size="sm" />
+              ) : (
+                '根据游玩时长推荐'
+              )}
+            </Button>
+          </div>
+
+          {userInfo ? (
             ''
+          ) : (
+            <Text size="$xs">
+              提示: 登录你的Steam账号以获取更多的游戏推荐类型
+            </Text>
           )}
           {[content, ...history].map((item, index) => {
             if (item) {
