@@ -14,3 +14,6 @@
 ## TODO
 - [ ] 接入更多游戏商店登录
 - [ ] i18n
+
+## Credit
+[email-helper](https://github.com/shengxinjing/email-helper)
